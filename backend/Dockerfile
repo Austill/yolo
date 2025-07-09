@@ -1,29 +1,29 @@
-# Use an official Node runtime as a parent image
-FROM node:14 AS build
+# Dockerfile for Node.js backend application
+# Use lightweight Node.js base image  (smaller file size)
 
-# Set the working directory in the container
+FROM node:18-alpine
+
+# Set working directory
+
 WORKDIR /usr/src/app
 
-# Copy the package.json and package-lock.json files to the container
+# Copy package files
+
 COPY package*.json ./
 
-# Install application dependencies
+# Install dependencies
+
 RUN npm install
 
-# Copy the rest of the application code to the container
+# Copy the entire project
+
 COPY . .
 
-#Add multi-stage build
-FROM alpine:3.16.7
+# Expose the backend port
 
-WORKDIR /app
-
-RUN apk update && apk add --update nodejs
-
-COPY --from=build /usr/src/app /app
-
-# Expose the port the app runs on
 EXPOSE 5000
 
-# Define the command to run your app
-CMD ["node", "server.js"]
+# Start the app
+
+CMD ["npm", "start"]
+
