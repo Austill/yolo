@@ -41,7 +41,7 @@ services:
     networks:
       - yolo-net
 
-  # MongoDB Database
+  # MongoDB Database 
   mongo:
     image: mongo:5
     container_name: yolo-mongo
@@ -60,7 +60,7 @@ networks:
     ipam:
       config:
         - subnet: 172.20.0.0/16
-          ip_range: 172.20.0.0/24
+          ip_range: 172.20.0.0/16
 
 # Persistent Volume for MongoDB
 volumes:
