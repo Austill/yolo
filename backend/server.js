@@ -43,7 +43,13 @@ app.use('/api/products', productRoute)
 
 // Simple test route
 
+app.get('/api', (req, res) => {
+  res.send('API root is working ✅');
+});
 
+app.get('/', (req, res) => {
+  res.send('Welcome to the YOLO Backend API');
+});
 
 // Define the PORT
 const PORT = process.env.PORT || 5000
