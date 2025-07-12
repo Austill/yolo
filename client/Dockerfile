@@ -14,10 +14,16 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
+#  Fix OpenSSL issue in Node 18+
+
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
+
 # Copy source files and build
 
 COPY . .
 RUN npm run build
+
 
 # -------------------------------------------------------
 # Stage 2: Serve with NGINX (Production)
