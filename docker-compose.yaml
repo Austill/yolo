@@ -8,7 +8,7 @@
 
 # This will automatically build and launch the app in your browser at http://localhost.
 
-version: "3.8"
+# version: "3.8"
 
 services:
   # Frontend Service (React built and served via Nginx)
@@ -40,16 +40,7 @@ services:
     networks:
       - yolo-net
 
-  # MongoDB Database 
-  # mongo:
-  #   image: mongo:5
-  #   container_name: yolo-mongo
-  #   ports:
-  #     - "27017:27017"
-  #   volumes:
-  #     - mongo_data:/data/db
-  #   networks:
-  #     - yolo-net
+
 
 # Docker Bridge Network for Container Communication
 networks:
@@ -62,6 +53,4 @@ networks:
           ip_range: 172.20.0.0/16
 
 # Persistent Volume for MongoDB
-# volumes:
-#   mongo_data:
-#     driver: local
+
