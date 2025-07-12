@@ -62,57 +62,44 @@
 
 
 
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
 const upload = multer();
-require('dotenv').config(); // ✅ load .env variables
 
 const productRoute = require('./routes/api/productRoute');
 
-// Define the database URI
-const localMongo = 'mongodb://mongo/yolomy'; // default fallback for Docker network
-const MONGODB_URI = process.env.MONGO_URI || localMongo;
+// Connect to MongoDB Atlas via env variable
+const MONGODB_URI = process.env.MONGO_URI;
 
-// Connect to MongoDB
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 });
 
 const db = mongoose.connection;
-
-// Connection Events
 db.once('open', () => {
   console.log('✅ Database connected successfully');
 });
-
 db.on('error', (error) => {
   console.error('❌ MongoDB connection error:', error);
 });
 
-// Initialize Express app
 const app = express();
-
-// Middleware
 app.use(express.json());
 app.use(upload.array());
 app.use(cors());
-
-// Routes
 app.use('/api/products', productRoute);
 
-// Basic Test Routes
 app.get('/api', (req, res) => {
-  res.send('API root is working ✅');
+  res.send('✅ API root is working');
 });
-
 app.get('/', (req, res) => {
   res.send('Welcome to the YOLO Backend API');
 });
 
-// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server listening on port ${PORT}`);
