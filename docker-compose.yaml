@@ -13,7 +13,7 @@
 services:
   # Frontend Service (React built and served via Nginx)
   yolo-client:
-    image: austinmisaro/yolo-client:v1.0.0
+    image: misaro/yolo-client:v1.0.0
     build: ./client
     container_name: yolo-client
     volumes:
@@ -30,7 +30,7 @@ services:
 
   # Backend Service (Node.js/Express + Mongoose)
   yolo-backend:
-    image: austinmisaro/yolo-backend:v1.0.0
+    image: misaro/yolo-backend:v1.0.0
     build: ./backend
     container_name: yolo-backend
     volumes:

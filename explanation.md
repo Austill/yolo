@@ -44,8 +44,8 @@
 ### Docker Image Tags
 
   ```bash
-    docker build -t austinmisaro/yolo-backend:v1.0.0 .
-    docker build -t austinmisaro/yolo-client:v1.0.0 .
+    docker build -t misaro/yolo-backend:v1.0.0 .
+    docker build -t misaro/yolo-client:v1.0.0 .
   ```
 ## 6. Application Running & Debugging
 
