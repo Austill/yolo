@@ -7,3 +7,4 @@ vault.yml
 .vscode
 .vscode/*
 .vscode/*.jsondocker-desktop-4.31.0-amd64.deb
+*.deb
