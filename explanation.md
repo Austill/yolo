@@ -40,9 +40,13 @@
   - `master` is the stable branch.
   - Changes and Dockerfile updates are committed progressively.
   - Image tags are based on Git updates and commits (e.g., `v1.0.0`).
+### Docker Image Tags
+  ```bash
+    docker build -t austinmisaro/yolo-backend:v1.0.0 .
+    docker build -t austinmisaro/yolo-client:v1.0.0 .
 
 ## 6. Application Running & Debugging
 
 - The app runs successfully using:
-  
-  docker compose up -d
+  ```bash  
+    docker compose up -d
