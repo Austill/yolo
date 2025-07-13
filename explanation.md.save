@@ -1,0 +1,34 @@
+# explanation.md
+
+## Overview
+This project is a containerized e-commerce web app made with a React frontend and a Node.js/Express backend. MongoDB Atlas is used for the database.
+
+## Tools Used
+- **Frontend:** React (yolo-client)
+- **Backend:** Express + Node.js (yolo-backend)
+- **Database:** MongoDB Atlas (cloud-hosted)
+- **Containerization:** Docker & Docker Compose
+
+## Key Docker Concepts Used
+
+### Dockerfile
+Each service (frontend & backend) has its own Dockerfile. These define:
+- The base image ( `node:18-alpine`)
+- Copying project files
+- Installing dependencies
+- Running the app
+
+### Docker Compose
+`docker-compose.yml` ties everything together:
+- Defines both services (client and backend)
+- Exposes ports (5000 for backend, 3000 for frontend and 80 for NGINX)
+- Uses a shared custom network for communication (`yolo-net`)
+
+### Volumes
+Volumes were originally used for MongoDB data, but they’ve been removed since MongoDB Atlas now stores data in the cloud.
+
+## Image Tagging
+Images are built and tagged like this:
+
+docker build -t austinmisaro/yolo-backend:v1.0.0 .
+docker build -t austinmisaro/yolo-client:v1.0.0 .
