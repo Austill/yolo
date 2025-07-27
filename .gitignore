@@ -1,10 +1,59 @@
-app-mongo-data
+# ------------------------
+# Project-specific ignores
+# ------------------------
 app-mongo-data/
 vars.yml
 vault.yml
+
+# ------------------------
+# Vagrant-related
+# ------------------------
 .vagrant/
+*.box
+
+# ------------------------
+# Ansible-related
+# ------------------------
+*.retry
+inventory.ini
+*.log
+
+# ------------------------
+# Python cache (if any)
+# ------------------------
+__pycache__/
+*.pyc
+
+# ------------------------
+# Editor/IDE specific
+# ------------------------
 .vscode/
-.vscode
-.vscode/*
-.vscode/*.jsondocker-desktop-4.31.0-amd64.deb
+.idea/
+*.swp
+*.swo
+*~
+
+# ------------------------
+# Environment files
+# ------------------------
+.env
+
+# ------------------------
+# SSH keys
+# ------------------------
+*.pem
+*.key
+
+# ------------------------
+# Docker-related
+# ------------------------
+*.tar
+*.img
+docker-desktop-4.31.0-amd64.deb
 *.deb
+
+# ------------------------
+# System files
+# ------------------------
+.DS_Store
+Thumbs.db
