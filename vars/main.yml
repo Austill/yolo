@@ -1,0 +1,4 @@
+repo_url: "https://github.com/Austill/yolo.git"
+app_dir: "/home/vagrant/ecommerce"
+backend_port: 5000
+frontend_port: 3000
