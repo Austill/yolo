@@ -1,27 +1,24 @@
 ---
-# tasks file for roles/backend
+# roles/backend/tasks/main.yml
 
+- name: Stop old backend container if running
+  community.docker.docker_container:
+    name: yolo-backend
+    state: absent
+    force_kill: true
+    timeout: 10
 
-- name: Install Docker Engine
-  apt:
-    name: docker.io
-    state: present
-    update_cache: yes
+- name: Pull backend Docker image
+  docker_image:
+    name: misaro/yolo-backend
+    tag: v1.0.0
+    source: pull
 
-- name: Ensure Docker service is running
-  service:
-    name: docker
+- name: Run backend container
+  docker_container:
+    name: yolo-backend
+    image: misaro/yolo-backend:v1.0.0
     state: started
-    enabled: yes
-
-- name: Add vagrant user to docker group
-  user:
-    name: vagrant
-    groups: docker
-    append: yes
-
-- name: Install Docker Compose
-  apt:
-    name: docker-compose
-    state: present
-    update_cache: yes
+    restart_policy: unless-stopped
+    published_ports:
+      - "5000:5000"

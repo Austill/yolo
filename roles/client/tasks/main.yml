@@ -1,12 +1,23 @@
 ---
-# tasks file for roles/client
+# roles/client/tasks/main.yml
+- name: Stop old client container if running
+  community.docker.docker_container:
+    name: yolo-client
+    state: absent
+    force_kill: true
+    timeout: 10
+
+- name: Pull client Docker image
+  docker_image:
+    name: misaro/yolo-client
+    tag: v1.0.0
+    source: pull
 
 - name: Run client container
   docker_container:
-    name: client
+    name: yolo-client
     image: misaro/yolo-client:v1.0.0
     state: started
-    ports:
-      - "{{ frontend_port }}:3000"
-    restart_policy: always
-
+    restart_policy: unless-stopped
+    published_ports:
+      - "80:3000"
