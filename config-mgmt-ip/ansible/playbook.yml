@@ -1,22 +1,16 @@
+---
 - name: Deploy E-commerce App with Docker
   hosts: all
-  become: true
+  become: yes
 
   vars_files:
-
-
-    - vars/main.yml
-
+     vars/main.yml
 
   roles:
 
-    - role: database
-      tags: db
-    - role: ecommerce
-      tags: ecommerce
-    - role: backend
-      tags: backend
-    - role: client
-      tags: client
-    - role: compose_up
-      tags: compose_up
+    - ecommerce
+    - database
+    - common
+    - backend
+    - client
+    - compose_up
