@@ -1,0 +1,28 @@
+---
+- name: Stop and remove existing yolo-backend container if exists
+  ansible.builtin.shell: |
+    docker rm -f yolo-backend || true
+  ignore_errors: true
+
+- name: Stop and remove existing yolo-client container if exists
+  ansible.builtin.shell: |
+    docker rm -f yolo-client || true
+  ignore_errors: true
+
+- name: Take down any existing docker-compose services
+  ansible.builtin.command:
+    cmd: docker-compose down
+    chdir: "{{ compose_directory }}"
+  ignore_errors: yes
+
+- name: Pull latest Docker images
+  ansible.builtin.command:
+    cmd: docker-compose pull
+    chdir: "{{ compose_directory }}"
+
+- name: Build and start containers
+  ansible.builtin.command:
+    cmd: docker-compose up -d --build
+    chdir: "{{ compose_directory }}"
+  register: compose_up_output
+  failed_when: "'error' in compose_up_output.stderr.lower()"

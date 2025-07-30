@@ -1,9 +1,0 @@
----
-# roles/client/tasks/main.yml
-
-- name: Stop old client container if running
-  community.docker.docker_container:
-    name: yolo-client
-    state: absent
-    force_kill: true
-    timeout: 10

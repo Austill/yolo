@@ -1,132 +1,84 @@
- # 🛍️  Yolo E-Commerce Web App
+# Automated Docker Deployment with Ansible + Vagrant
 
-
-Yolo is a full-stack e-commerce platform built with the **MERN stack** and fully containerized using **Docker** and **Docker Compose** for easy deployment and development.
-
----
-
-## 🧰 Stack Overview
-
-- **Frontend**: React.js (served via Nginx)
-- **Backend**: Node.js + Express
-- **Database**: MongoDB Atlas (Cloud-hosted)
-- **Containerization**: Docker & Docker Compose
+This project sets up a local environment for a containerized web app using Vagrant, Ansible, and Docker — fully automated.
 
 ---
 
-## 📁 Project Layout
+## 💡 What This Does
+- Spins up a virtual Ubuntu server using Vagrant
+- Installs Docker and Docker Compose via Ansible
+- Clones your app repository automatically inside the VM
+- Runs your full-stack app using Docker Compose
+- Stops and removes old containers before redeploying
 
+---
+
+## ⚙️ Prerequisites
+
+Ensure these tools are installed on your host machine:
+- VirtualBox
+- Vagrant
+
+---
+
+## 🚀 How to Run the Project
+
+### 1. Open your terminal and cd into the project folder
 ```
-yolo/
-├── client/        # React app
-├── backend/       # Express API
-├── docker-compose.yml
-└── README.md
+cd config-mgmt-ip
 ```
+### 2. Boot and provision the virtual machine
+```
+vagrant up
+vagrant provision
+```
+This installs Docker, clones your app, and sets up everything via Ansible.
+
+### 3. SSH into the VM to check or run commands
+```
+vagrant ssh
+```
+Your project will be cloned under /home/vagrant/ecommerce/ (or wherever the playbook defines).
 
 ---
 
-## 🚀 Quick Start
+## 🗂 Project Structure
 
-1. **Clone the repo:**
-
-```bash
-git clone https://github.com/Austill/yolo.git
-cd yolo
-```
-
-2. **Set your MongoDB URI in a .env file:**
-
-Create a file at `./backend/.env` and add:
-
-```env
-MONGO_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/yolo
-```
-
-3. **Run the app with Docker Compose:**
-
-```bash
-docker compose up --build -d
-```
+ecommerce/
+├── Vagrantfile
+├── ansible/
+│   ├── ansible.cfg
+│   ├── inventory.ini
+│   ├── playbook.yml
+│   └── roles/
+│       ├── docker/
+│       ├── app_deploy/
+│       └── ...
 
 ---
 
-## 🌐 Access Points
+## ✅ What You Get
 
-| Service   | URL                               |
-|-----------|-----------------------------------|
-| Frontend  | http://localhost:3000             |
-| Backend   | http://localhost:5000             |
-| API Test  | http://localhost:5000/api/products |
-
----
-
-## 🛠️ Docker Details
-
-### Containers
-- `yolo-client` (React via Nginx on port 3000 → 80)
-- `yolo-backend` (Node/Express on port 5000)
-
-### Docker Images
-- `misaro/yolo-client:v1.0.0`
-- `misaro/yolo-backend:v1.0.0`
+Once provisioned:
+- Docker is ready
+- Your app is cloned and deployed
+- Containers are up and running automatically
+- No manual setup needed
 
 ---
 
+## 🧹 Stop or Clean Up
 
-## 📸 DockerHub Images
-
-Here’s a snapshot of the published Docker images:
-
-![DockerHub Screenshot](./screenshots/dockerhubscreenshot.png)
-
-
-
-## 🔐 Environment Setup
-
-MongoDB URI is required in:
-- `backend/.env`
-
-```env
-MONGO_URI=your-mongodb-uri
+To halt the VM:
 ```
-
----
-
-## 🗂️ Volumes
-
-> No local Mongo volume is needed since MongoDB is hosted on Atlas.
-
----
-
-## 📤 Deployment Workflow
-
-### Build and tag:
-
-```bash
-docker build -t misaro/yolo-client:v1.0.0 ./client
-docker build -t misaro/yolo-backend:v1.0.0 ./backend
+vagrant halt
 ```
-
-### Push to DockerHub:
-
-```bash
-docker push misaro/yolo-client:v1.0.0
-docker push misaro/yolo-backend:v1.0.0
+To remove the VM completely:
 ```
-
+vagrant destroy
+```
 ---
 
-## ✅ Git Usage
+## 👨‍💻 Author
 
-```bash
-git add .
-git commit -m "Initial commit"
-git push origin master
-```
-
----
-
-## 👨‍💻 Maintainer
-
-Built with ❤️ by **Austin Misaro**
+Austin Misaro – DevOps Student | Moringa School

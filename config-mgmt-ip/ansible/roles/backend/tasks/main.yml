@@ -1,9 +1,0 @@
----
-# roles/backend/tasks/main.yml
-
-- name: Stop old backend container if running
-  community.docker.docker_container:
-    name: yolo-backend
-    state: absent
-    force_kill: true
-    timeout: 10

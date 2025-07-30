@@ -1,0 +1,24 @@
+---
+# roles/backend/tasks/main.yml
+
+- name: Stop old backend container if running
+  community.docker.docker_container:
+    name: yolo-backend
+    state: absent
+    force_kill: true
+    timeout: 10
+
+- name: Pull backend Docker image
+  docker_image:
+    name: misaro/yolo-backend
+    tag: v1.0.0
+    source: pull
+
+- name: Run backend container
+  docker_container:
+    name: yolo-backend
+    image: misaro/yolo-backend:v1.0.0
+    state: started
+    restart_policy: unless-stopped
+    published_ports:
+      - "5000:5000"
