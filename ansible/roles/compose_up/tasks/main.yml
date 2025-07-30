@@ -1,28 +1,38 @@
 ---
-- name: Stop and remove existing yolo-backend container if exists
-  ansible.builtin.shell: |
-    docker rm -f yolo-backend || true
-  ignore_errors: true
+# roles/compose_up/tasks/main.yml
 
-- name: Stop and remove existing yolo-client container if exists
-  ansible.builtin.shell: |
-    docker rm -f yolo-client || true
-  ignore_errors: true
+- name: Ensure Docker CLI plugin directory exists
+  file:
+    path: /usr/lib/docker/cli-plugins
+    state: directory
+    mode: '0755'
+  become: true
 
-- name: Take down any existing docker-compose services
-  ansible.builtin.command:
-    cmd: docker-compose down
-    chdir: "{{ compose_directory }}"
+- name: Ensure Docker service is running
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: true
+
+- name: Bring down any existing Compose stack (ignore errors)
+  ansible.builtin.shell: docker compose down --remove-orphans
+  args:
+    chdir: "{{ compose_dir | default('/home/vagrant/ecommerce') }}"
   ignore_errors: yes
+  become: true
 
-- name: Pull latest Docker images
-  ansible.builtin.command:
-    cmd: docker-compose pull
-    chdir: "{{ compose_directory }}"
+- name: Pull latest images from Compose file
+  ansible.builtin.shell: docker compose pull
+  args:
+    chdir: "{{ compose_dir | default('/home/vagrant/ecommerce') }}"
+  become: true
 
-- name: Build and start containers
-  ansible.builtin.command:
-    cmd: docker-compose up -d --build
-    chdir: "{{ compose_directory }}"
-  register: compose_up_output
-  failed_when: "'error' in compose_up_output.stderr.lower()"
+- name: Start services with Docker Compose
+  ansible.builtin.shell: docker compose up -d
+  args:
+    chdir: "{{ compose_dir | default('/home/vagrant/ecommerce') }}"
+  register: compose_up
+  failed_when: compose_up.rc != 0
+  changed_when: "'Creating' in compose_up.stdout or 'Starting' in compose_up.stdout"
+  become: true
