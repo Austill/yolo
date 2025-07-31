@@ -7,17 +7,3 @@
     force_kill: true
     timeout: 10
 
-- name: Pull client Docker image
-  docker_image:
-    name: misaro/yolo-client
-    tag: v1.0.0
-    source: pull
-
-- name: Run client container
-  docker_container:
-    name: yolo-client
-    image: misaro/yolo-client:v1.0.0
-    state: started
-    restart_policy: unless-stopped
-    published_ports:
-      - "80:3000"

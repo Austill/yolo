@@ -12,6 +12,8 @@
 
     - role: database
       tags: db
+    - role: docker
+      tags: docker
     - role: ecommerce
       tags: ecommerce
     - role: backend

@@ -25,7 +25,7 @@ Ensure these tools are installed on your host machine:
 
 ### 1. Open your terminal and cd into the project folder
 ```
-cd config-mgmt-ip
+cd yolo
 ```
 ### 2. Boot and provision the virtual machine
 ```
