@@ -1,6 +1,4 @@
 ---
-# roles/compose_up/tasks/main.yml
-
 - name: Ensure Docker CLI plugin directory exists
   file:
     path: /usr/lib/docker/cli-plugins
@@ -15,17 +13,32 @@
     enabled: yes
   become: true
 
-- name: Pull latest images from Compose file
-  ansible.builtin.shell: docker compose pull
+- name: Check for existing Docker Compose CLI plugin binary
+  stat:
+    path: /usr/lib/docker/cli-plugins/docker-compose
+  register: compose_plugin
+  become: true
+
+- name: Download Docker Compose CLI plugin binary if missing
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/v2.21.0/docker-compose-linux-x86_64"
+    dest: /usr/lib/docker/cli-plugins/docker-compose
+    mode: '0755'
+  when: not compose_plugin.stat.exists
+  become: true
+
+- name: Pull latest Docker images via Compose plugin binary
+  command: /usr/lib/docker/cli-plugins/docker-compose pull
   args:
     chdir: "{{ compose_dir | default('/home/vagrant/ecommerce') }}"
   become: true
 
-- name: Start services with Docker Compose
-  ansible.builtin.shell: docker-compose up -d
+- name: Bring up services with Docker Compose plugin binary
+  command: /usr/lib/docker/cli-plugins/docker-compose up -d
   args:
     chdir: "{{ compose_dir | default('/home/vagrant/ecommerce') }}"
   register: compose_up
   failed_when: compose_up.rc != 0
-  changed_when: "'Creating' in compose_up.stdout or 'Starting' in compose_up.stdout"
+  changed_when: compose_up.stdout is search("Creating|Starting")
   become: true
+
