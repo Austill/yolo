@@ -6,7 +6,7 @@ metadata:
   labels:
     app: backend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: backend
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: brianbwire/brian-yolo-backend:v1.0.0
+          image: misaro/yolo-backend:v1.0.0
           command: ["npm", "start"]
           ports:
             - containerPort: 5000
