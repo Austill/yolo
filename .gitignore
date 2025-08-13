@@ -12,11 +12,11 @@ vault.yml
 *.box
 
 # ------------------------
-# Ansible-related
-# ------------------------
-*.retry
-inventory.ini
-*.log
+# # Ansible-related
+# # ------------------------
+# *.retry
+# inventory.ini
+# *.log
 
 # ------------------------
 # Python cache (if any)
@@ -57,3 +57,12 @@ docker-desktop-4.31.0-amd64.deb
 # ------------------------
 .DS_Store
 Thumbs.db
+
+
+# Ignore AWS config and CLI files
+aws/
+awscliv2.zip
+
+# Ignore VirtualBox log files
+2025-08-09-13-26-06.019-VBoxSVC-630045.log
+2025-08-09-13-26-07.004-VBoxHeadless-630725.log
