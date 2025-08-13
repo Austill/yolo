@@ -6,7 +6,7 @@ metadata:
   labels:
     app: frontend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: frontend
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: brianbwire/brian-yolo-frontend:v1.0.0
+          image: misaro/yolo-client:v1.0.0
           ports:
             - containerPort: 80
           env:
