@@ -22,18 +22,18 @@ spec:
           ports:
             - containerPort: 5000
           env:
-            - name: MONGODB_URI
+            - name: MONGO_URI
               valueFrom:
                 secretKeyRef:
                   name: mongo-secret
                   key: uri
           resources:
             limits:
-              memory: "256Mi"
-              cpu: "500m"
-            requests:
               memory: "128Mi"
               cpu: "250m"
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
 ---
 apiVersion: v1
 kind: Service

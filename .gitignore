@@ -66,3 +66,21 @@ awscliv2.zip
 # Ignore VirtualBox log files
 2025-08-09-13-26-06.019-VBoxSVC-630045.log
 2025-08-09-13-26-07.004-VBoxHeadless-630725.log
+
+
+
+# Kubernetes configs/folders
+k8s*
+
+# IAM policies
+iam-policy*
+
+# EKS scripts/files
+eks_*
+eks-*
+
+# Very long cloudformation file/command
+'cloudformation describe-stack-events   --stack-name eksctl-ecommerce-cluster-nodegroup-standard-workers   --region us-east-1   --query StackEvents[?ResourceStatus==`CREATE_FAILED`].[LogicalResourceId,ResourceStatusReason]   --output text'
+
+# VBox log files
+*.log
