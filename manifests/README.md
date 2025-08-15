@@ -2,7 +2,7 @@
 
 Deploy a production-ready e-commerce application on AWS EKS with Application Load Balancer (ALB) ingress.
 
-## 🚀 Quick Start
+## �� Quick Start
 
 ### Prerequisites
 ```bash
